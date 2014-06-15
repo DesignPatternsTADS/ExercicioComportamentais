@@ -39,7 +39,7 @@ public class Main {
         ConcreteSensor ts = new TemperatureSensor("Room1LocalTemp");
         for (Alarm alarm : alarms) {
 
-            ts.addObserverAbstract(alarm);
+            ts.addObserver(alarm);
 
         }
 
@@ -61,7 +61,7 @@ public class Main {
 
         for (Alarm alarm : alarms1) {
 
-            cc.addObserverAbstract(alarm);
+            cc.addObserver(alarm);
 
         }
 
@@ -85,7 +85,7 @@ public class Main {
         for (Alarm alarm : alarms2) {
 
            // sn2.addObserver(alarm);
-            ms.addObserverAbstract(alarm);
+            ms.addObserver(alarm);
 
         }
    
@@ -98,7 +98,7 @@ public class Main {
         room1.addSensor(ms2);
         room1.addSensor(ms3);
      
-       // building.addSensor(room1);
+        building.addSensor(room1);
         
         
         SensorIterable sensorIterable  =  new SensorIterable(room1);
@@ -109,10 +109,10 @@ public class Main {
 
         Monitor monitor = new Monitor();
 
-       //monitor.addSensor(building);
+       monitor.addSensor(building);
        //monitor.addSensor(room1);
 
-        //monitor.run();
+        monitor.run();
 
     }
 

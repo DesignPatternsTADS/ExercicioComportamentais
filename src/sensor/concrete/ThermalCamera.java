@@ -8,15 +8,16 @@ import sensor.SensorNotifier;
 
 public class ThermalCamera extends ConcreteSensor {
 
-	private boolean running;
+	/*private boolean running;
 	private boolean thermalPatternDetected;
 	private SensorDriver driver = new SensorDriver();
-
+        */
 	public ThermalCamera(String id) {
 		super(id);
               //   this.sensorNotifier = new  SensorNotifier();
-                this.alarmes = new ArrayList<Alarm>();
+                
 	}
+        /*
 	public ThermalCamera(String id, SensorNotifier sn) {
 		super(id);
                  this.sensorNotifier = sn;
@@ -62,5 +63,12 @@ public class ThermalCamera extends ConcreteSensor {
 
      public void setEnabledOrDisabledSensor(boolean enabledOrDisable ){
         enabled = enabledOrDisable;
+    }*/
+
+    @Override
+    boolean calculateMeasure(int measure) {
+        return (measure >= 75);
     }
+        
+        
 }

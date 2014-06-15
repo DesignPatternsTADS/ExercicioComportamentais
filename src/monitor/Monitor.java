@@ -8,36 +8,25 @@ import sensor.SensorNotifier;
 
 public class Monitor {
 
-	private List<Sensor> sensors = new ArrayList<Sensor>();
+    private List<Sensor> sensors = new ArrayList<Sensor>();
 
-	public void addSensor(Sensor sensor) {
-		this.sensors.add(sensor);		
-	}
+    public void addSensor(Sensor sensor) {
+        this.sensors.add(sensor);
+    }
 
-	public void run() {
+    public void run() {
 
-		for (Sensor sensor : this.sensors) {
-			sensor.start();
-		}
-		
-             
-                
-		for (Sensor sensor : this.sensors) {
-			System.out.print(sensor.report());
-               
-                    }
-                       
-		
-                
-               
-		
-                
-                
-                
-               
-               
-		for (Sensor sensor : this.sensors) {
-			sensor.stop();
-		}
-	}
+        for (Sensor sensor : this.sensors) {
+            sensor.start();
+        }
+
+        for (Sensor sensor : this.sensors) {
+            System.out.print(sensor.report());
+
+        }
+
+        for (Sensor sensor : this.sensors) {
+            sensor.stop();
+        }
+    }
 }

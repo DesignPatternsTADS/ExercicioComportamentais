@@ -3,15 +3,14 @@ package sensor;
 import java.util.List;
 import sensor.SensorNotifier;
 
-public interface Sensor{
+public interface Sensor extends InterfaceSensorNotifier{
 	public  void start();
 	public  void stop();
 	public  boolean presence();
 	public String report();
         public void addAlarmsAssociated(Alarm alarme);
         public List<Alarm> getAlarmes();
-        public  String notifyPresenceAlarmAbstract();
-    public  void addObserverAbstract(SensorObserver sensor);
-   public  List<SensorObserver> getSensorsAbstract();
+
+
       
 }

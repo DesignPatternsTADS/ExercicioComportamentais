@@ -5,19 +5,20 @@ import java.util.List;
 import sensor.Alarm;
 import sensor.Sensor;
 import sensor.SensorNotifier;
+import sensor.SensorObserver;
 
 public class ColorCamera extends ConcreteSensor {
 
-    private boolean running;
+   /* private boolean running;
     private boolean humanFaceDetected;
     private SensorDriver driver = new SensorDriver();
-
+*/
     public ColorCamera(String id) {
         super(id);
         //this.sensorNotifier = new SensorNotifier();
-        this.alarmes = new ArrayList<Alarm>();
+       // this.alarmes = new ArrayList<Alarm>();
     }
-    public ColorCamera(String id, SensorNotifier sn) {
+   /* public ColorCamera(String id, SensorNotifier sn) {
 		super(id);
                  this.sensorNotifier = sn;
                 this.alarmes = new ArrayList<Alarm>();
@@ -28,6 +29,7 @@ public class ColorCamera extends ConcreteSensor {
     public boolean presence() {
         return this.humanFaceDetected;
     }
+    
 
     @Override
     public void start() {
@@ -50,21 +52,15 @@ public class ColorCamera extends ConcreteSensor {
         }
         driver.shutdown();
     }
+*/
+   
 
     @Override
-    public void addAlarmsAssociated(Alarm alarme) {
-        super.alarmes.add(alarme);
+    boolean calculateMeasure(int measure) {
+        return (measure > 10 && measure < 40);
     }
 
-    @Override
-    public List<Alarm> getAlarmes() {
-        return alarmes;
-    }
 
-    public void setEnabledOrDisabledSensor(boolean enabledOrDisable ){
-        enabled = enabledOrDisable;
-    }
-    
     
     
 }

@@ -9,15 +9,17 @@ import sensor.SensorNotifier;
 public class MovementSensor extends ConcreteSensor {
 
 	private static final int THRESHOLD = 30;
-	private boolean running;
+	/*private boolean running;
 	private boolean movementDetected;
 	private SensorDriver driver = new SensorDriver();
-
+        */
 	public MovementSensor(String id) {
 		super(id);
              //           this.sensorNotifier =  new SensorNotifier();
-                this.alarmes = new ArrayList<Alarm>();
+               // this.alarmes = new ArrayList<Alarm>();
 	}
+        
+         /*
          public MovementSensor(String id, SensorNotifier sn) {
 		super(id);
                  this.sensorNotifier = sn;
@@ -25,7 +27,7 @@ public class MovementSensor extends ConcreteSensor {
 	}
  
 	
-
+        
 	@Override
 	public boolean presence() {
 		return this.movementDetected;
@@ -65,5 +67,10 @@ public class MovementSensor extends ConcreteSensor {
 
      public void setEnabledOrDisabledSensor(boolean enabledOrDisable ){
         enabled = enabledOrDisable;
+    }*/
+
+    @Override
+    boolean calculateMeasure(int measure) {
+        return measure > MovementSensor.THRESHOLD;
     }
 }

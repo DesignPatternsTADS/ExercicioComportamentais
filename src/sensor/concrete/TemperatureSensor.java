@@ -9,15 +9,16 @@ import sensor.SensorNotifier;
 public class TemperatureSensor extends ConcreteSensor {
 
 	private static int PERSON_TEMP = 37;
-	private boolean running;
+	/*private boolean running;
 	private boolean personTempDetected;
 	private SensorDriver driver = new SensorDriver();
-	
+	*/
 	public TemperatureSensor(String id) {
 		super(id);
 //s               this.sensorNotifier =  new SensorNotifier();
-                this.alarmes = new ArrayList<Alarm>();
+            //    this.alarmes = new ArrayList<Alarm>();
 	}
+        /*
         public TemperatureSensor(String id, SensorNotifier sn) {
 		super(id);
                  this.sensorNotifier = sn;
@@ -64,6 +65,13 @@ public class TemperatureSensor extends ConcreteSensor {
     }
  public void setEnabledOrDisabledSensor(boolean enabledOrDisable ){
         enabled = enabledOrDisable;
+    }*/
+
+    @Override
+    boolean calculateMeasure(int measure) {
+        return (measure == PERSON_TEMP);
     }
+        
+        
 
 }
