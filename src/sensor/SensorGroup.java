@@ -2,12 +2,17 @@ package sensor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 public class SensorGroup implements Sensor {
 
     private String groupId;
     private List<Sensor> sensors = new ArrayList<Sensor>();
+
+    public String getGroupId() {
+        return groupId;
+    }
 
     public List<Sensor> getSensors() {
         return sensors;
@@ -65,34 +70,51 @@ public class SensorGroup implements Sensor {
         }
     }
 
-    @Override
-    public void addAlarmsAssociated(Alarm alarme) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Alarm> getAlarmes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
+    /*
+protected List<SensorObserver> sensores = new ArrayList<SensorObserver>();
+     @Override
     public String notifyPresenceAlarm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          String equal = "===========================";
+    String hifen = "------------------------";
+        String str = "";
+
+        str += "\n" + equal + "\n ALARMS ASSOCIATED TO " + this.getGroupId() + "\n" + equal + "\n";
+
+        for (Alarm alarm : this.getAlarmes()) {
+
+            str += hifen + "\n" + "Name Alarm:" + alarm.getNome() + "\n" + hifen;
+
+        }
+
+        Iterator iterator = sensores.iterator();
+        str += "\n" + equal + "\n" + "NOTIFICATION ALERT TO " + this.groupId + "\n" + equal + "\n";
+        while (iterator.hasNext()) {
+            Alarm so = (Alarm) iterator.next();
+
+            str += so.ring();
+
+        }
+
+        str += "\n" + equal + "\n";
+
+// while
+        return str;
     }
 
     @Override
     public void addObserver(SensorObserver sensor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sensores.add(sensor);
+        //this.addAlarmsAssociated((Alarm) sensor);
+    }
+    
+      @Override
+    public void removeObserver(SensorObserver observer) {
+        sensores.remove(observer);
     }
 
     @Override
     public List<SensorObserver> getSensorsObservers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeObserver(SensorObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        return sensores;
+    }*/
 
 }

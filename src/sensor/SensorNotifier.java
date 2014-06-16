@@ -7,6 +7,7 @@ package sensor;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import sensor.concrete.ConcreteSensor;
 
 /**
  *
@@ -42,7 +43,7 @@ public abstract class SensorNotifier {
          Alarm so = (Alarm) iterator.next();
 
          str +=   so.ring();
-                  sensor.addAlarmsAssociated(so);
+                  ((ConcreteSensor)sensor).addAlarmsAssociated(so);
                  
         }
                     str +=  "\n" + equal + "\n";
@@ -50,7 +51,7 @@ public abstract class SensorNotifier {
                     str +=  "\n"+ equal+"\n" ;
                     
                     
-        for (Alarm alarm : sensor.getAlarmes()) {
+        for (Alarm alarm : ((ConcreteSensor)sensor).getAlarmes()) {
 
 
             str += hifen + "\n";

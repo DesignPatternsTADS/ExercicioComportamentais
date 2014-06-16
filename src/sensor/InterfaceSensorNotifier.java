@@ -14,7 +14,8 @@ import java.util.List;
  */
 public interface InterfaceSensorNotifier {
         public  String notifyPresenceAlarm();
-    public  void addObserver(SensorObserver sensor);
+    public  void addObserver(SensorObserver observer);
    public  List<SensorObserver> getSensorsObservers();
   public  void removeObserver(SensorObserver observer);
+  
 }

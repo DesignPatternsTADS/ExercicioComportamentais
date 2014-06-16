@@ -5,12 +5,13 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import sensor.Alarm;
+import sensor.InterfaceSensorNotifier;
 
 import sensor.Sensor;
 import sensor.SensorNotifier;
 import sensor.SensorObserver;
 
-public abstract class ConcreteSensor implements Sensor, Runnable {
+public abstract class ConcreteSensor implements Sensor, Runnable,InterfaceSensorNotifier {
 
     protected String id = null;
 
@@ -46,6 +47,7 @@ public abstract class ConcreteSensor implements Sensor, Runnable {
 
             status = true;
         }
+        
         str += "Presence: " + status + "\n";
         if (status) {
 
@@ -92,17 +94,24 @@ public abstract class ConcreteSensor implements Sensor, Runnable {
         sensors.add(sensor);
         this.addAlarmsAssociated((Alarm) sensor);
     }
+    
+      @Override
+    public void removeObserver(SensorObserver observer) {
+        sensors.remove(observer);
+    }
 
     @Override
     public List<SensorObserver> getSensorsObservers() {
         return sensors;
     }
-
-    @Override
-    public void removeObserver(SensorObserver observer) {
-        sensors.remove(observer);
+//    @Override
+    public List<Alarm> getAlarmes() {
+        return alarmes;
     }
+    
+   
 
+   
     protected boolean running;
     protected boolean concretSensorDetected;
     protected SensorDriver driver = new SensorDriver();
@@ -136,15 +145,12 @@ public abstract class ConcreteSensor implements Sensor, Runnable {
 
     abstract boolean calculateMeasure(int measure);
 
-    @Override
+   // @Override
     public void addAlarmsAssociated(Alarm alarme) {
         this.alarmes.add(alarme);
     }
 
-    @Override
-    public List<Alarm> getAlarmes() {
-        return alarmes;
-    }
+
 
     public void setEnabledOrDisabledSensor(boolean enabledOrDisable) {
         enabled = enabledOrDisable;

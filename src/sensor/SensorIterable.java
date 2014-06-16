@@ -25,8 +25,10 @@ public class SensorIterable implements Iterable<Sensor> {
     private int countMovementSensor = 0;
     private int countTemperatureSensor = 0;
     private int countThermalCamara = 0;
+    private String nameSensorGroup;
 
     public SensorIterable(SensorGroup sensorGroup) {
+        this.nameSensorGroup = sensorGroup.getGroupId();
         this.sensores = sensorGroup.getSensors();
         this.length = this.sensores.size();
     }
@@ -36,7 +38,7 @@ public class SensorIterable implements Iterable<Sensor> {
 
     public void countSensorsType() {
         String str = "";
-        str += "\n" + equal + "\n" + "COUNT TYPE SENSOR" + "\n" + equal ;
+        str += "\n" + equal + "\n" + "COUNT TYPE SENSOR - " + this.nameSensorGroup+ "\n" + equal;
 
         Iterator iterator = iterator();
 
@@ -52,6 +54,9 @@ public class SensorIterable implements Iterable<Sensor> {
                 countTemperatureSensor++;
             } else if (temp instanceof ThermalCamera) {
                 countThermalCamara++;
+            }else if(temp instanceof SensorGroup){
+                SensorIterable si = new SensorIterable((SensorGroup)temp);
+                si.countSensorsType();
             }
 
         }
@@ -70,36 +75,43 @@ public class SensorIterable implements Iterable<Sensor> {
 
     }
 
-     public static final Class<ColorCamera> COLORCAMERA = ColorCamera.class;
+    public static final Class<ColorCamera> COLORCAMERA = ColorCamera.class;
     public static final Class<MovementSensor> MOVEMENTSENSOR = MovementSensor.class;
     public static final Class<TemperatureSensor> TEMPERATURESENSOR = TemperatureSensor.class;
     public static final Class<ThermalCamera> THERMALCAMERA = ThermalCamera.class;
-    
-    public void enabledOrDisabledTypeSensors(boolean enabledOrDisabled, Class<? extends ConcreteSensor> sensor) {
 
-       Iterator iterator = iterator();
+    public void enabledOrDisabledTypeSensors(boolean enabledOrDisabled, Class<? extends Sensor> sensor) {
+
+        Iterator iterator = iterator();
         String str = "";
-        str += "\n" + equal + "\n" + "ENABLED/DISAVLED TYPE SENSORS" + "\n" + equal + "\n";
+        str += "\n" + equal + "\n" + "ENABLED/DISAVLED TYPE SENSORS - " + this.nameSensorGroup + "\n" + equal + "\n";
+        boolean controle = false;
         while (iterator.hasNext()) {
             Sensor temp = (Sensor) iterator.next();
-            ConcreteSensor cs = (ConcreteSensor) temp;
-            
-            
-            if ((cs.getClass() ==(ColorCamera.class)) && (sensor.equals( COLORCAMERA))) {
-                ((ColorCamera) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
-                
-            } else if ((cs.getClass().equals( MovementSensor.class)) && (sensor.equals(  MOVEMENTSENSOR))) {
-                ((MovementSensor) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
 
-            } else  if ((cs.getClass().equals(TemperatureSensor.class)) && (sensor.equals( TEMPERATURESENSOR))){
+            if ((temp instanceof ColorCamera) && (sensor.equals(COLORCAMERA))) {
+                ((ColorCamera) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
+                controle = true;
+            } else if ((temp instanceof MovementSensor) && (sensor.equals(MOVEMENTSENSOR))) {
+                ((MovementSensor) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
+                controle = true;
+            } else if ((temp instanceof TemperatureSensor) && (sensor.equals(TEMPERATURESENSOR))) {
                 ((TemperatureSensor) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
-            } else  if ((cs.getClass().equals( ThermalCamera.class)) && (sensor.equals( THERMALCAMERA))) {
+            } else if ((temp instanceof ThermalCamera) && (sensor.equals(THERMALCAMERA))) {
                 ((ThermalCamera) temp).setEnabledOrDisabledSensor(enabledOrDisabled);
+                controle = true;
+            }else if(temp instanceof SensorGroup){
+                SensorIterable si = new SensorIterable((SensorGroup)temp);
+                si.enabledOrDisabledTypeSensors(enabledOrDisabled, sensor);
             }
-           str += hifen + "\n" +  "Sensor:" + cs.getId() + "\n" + "Enabled/Disabled:" + cs.isEnabled() + "\n"  + hifen + "\n"; ;
+            if (controle) {
+                ConcreteSensor cs = (ConcreteSensor) temp;
+                str += hifen + "\n" + "Sensor:" + cs.getId() + "\n" + "Enabled/Disabled:" + cs.isEnabled() + "\n" + hifen + "\n";
+                controle =false;
+            }
         }
-            str+=  equal+ "\n";
-            System.out.println(str);
+        str += equal + "\n";
+        System.out.println(str);
     }
 
     public SensorIterator iterator() {

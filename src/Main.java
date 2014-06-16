@@ -101,10 +101,20 @@ public class Main {
         building.addSensor(room1);
         
         
-        SensorIterable sensorIterable  =  new SensorIterable(room1);
-       // SensorIterable sensorIterable  =  new SensorIterable(building);
+       // SensorIterable sensorIterable  =  new SensorIterable(room1);
+        SensorIterable sensorIterable  =  new SensorIterable(building);
         sensorIterable.countSensorsType();
-        sensorIterable.enabledOrDisabledTypeSensors(false, SensorIterable.MOVEMENTSENSOR  );
+        
+        /*
+        false - desactive
+        true - active
+       COLORCAMERA = ColorCamera.class;
+    MOVEMENTSENSOR = MovementSensor.class;
+    TEMPERATURESENSOR = TemperatureSensor.class;
+    THERMALCAMERA = ThermalCamera.class;
+        */
+        sensorIterable.enabledOrDisabledTypeSensors(false, SensorIterable.COLORCAMERA );
+        sensorIterable.enabledOrDisabledTypeSensors(true, SensorIterable.COLORCAMERA );
         
 
         Monitor monitor = new Monitor();
